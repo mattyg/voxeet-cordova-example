@@ -1,24 +1,12 @@
 # voxeet-cordova-example
 
 ## Project setup
-```
-yarn install
-```
+
+1. Copy .env.example to .env & fill in variables
+2. `yarn install`
 
 ### Compiles and hot-reloads for development
-```
-yarn serve
-```
 
-### Compiles and minifies for production
 ```
-yarn build
+yarn run cordova-serve-android
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
