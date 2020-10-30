@@ -63,6 +63,10 @@ export default {
         )
       );
 
+      await Voxeet.appearMaximized(true);
+      await Voxeet.defaultBuiltInSpeaker(true);
+      await Voxeet.defaultVideo(true);
+
       this.connected = true;
     },
     async create() {
