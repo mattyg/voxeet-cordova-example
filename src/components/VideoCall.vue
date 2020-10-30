@@ -7,10 +7,18 @@
     <div class="mb-25">
       <button v-if="!connected" @click="connect">Connect to Voxeet</button>
       <div v-else>Connected as "{{ userName }}"</div>
+      <button v-if="connected" @click="disconnect">
+        Disconnect from Voxeet
+      </button>
     </div>
 
     <div class="mb-25">
       <button @click="create">Create Conference</button>
+    </div>
+
+    <div class="mb-25">
+      <b>User Name</b><input type="text" v-model="invitedUserName" />
+      <button @click="invite">Invite User</button>
     </div>
 
     <div class="mb-25">
@@ -33,8 +41,9 @@ export default {
     return {
       connected: false,
       conferenceId: "",
-      externalUserId: crypto.randomBytes(5).toString("hex"),
+
       userName: `test user - ${crypto.randomBytes(1).toString("hex")}`,
+      invitedUserName: "",
     };
   },
   methods: {
@@ -48,15 +57,11 @@ export default {
 
       await Voxeet.connect(
         new window.UserInfo(
-          this.externalUserId,
-          `test user`,
+          this.userName,
+          this.userName,
           "https://ucarecdn.com/87659028-3081-4ece-ae0c-f863c28c2030/person_round.png"
         )
       );
-
-      await Voxeet.appearMaximized(true);
-      await Voxeet.defaultBuiltInSpeaker(true);
-      await Voxeet.defaultVideo(true);
 
       this.connected = true;
     },
@@ -78,6 +83,26 @@ export default {
 
       console.log("joining conference with id", this.conferenceId);
       await Voxeet.join(this.conferenceId);
+    },
+    async invite() {
+      const { Voxeet } = window.VoxeetSDK;
+
+      const invitingUser = new window.UserInfo(
+        this.invitedUserName,
+        this.invitedUserName,
+        "https://ucarecdn.com/87659028-3081-4ece-ae0c-f863c28c2030/person_round.png"
+      );
+
+      console.log(
+        `inviting user ${this.invitedUserName} to conference id=${this.conferenceId}`
+      );
+      await Voxeet.invite(this.conferenceId, [invitingUser]);
+    },
+    async disconnect() {
+      const { Voxeet } = window.VoxeetSDK;
+
+      console.log(`disconnecting from voxeet`);
+      await Voxeet.disconnect();
     },
   },
 };

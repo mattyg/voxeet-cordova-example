@@ -17,13 +17,16 @@
   },
   "devDependencies": {
     "cordova-android": "^9.0.0",
-    "cordova-plugin-voxeet": "^1.3.33",
+    "cordova-plugin-voxeet": "^1.3.35",
     "cordova-plugin-whitelist": "^1.3.4"
   },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-voxeet": {}
+      "cordova-plugin-voxeet": {
+        "VOXEET_CORDOVA_CONSUMER_KEY": "null",
+        "VOXEET_CORDOVA_CONSUMER_SECRET": "null"
+      }
     },
     "platforms": [
       "android"
